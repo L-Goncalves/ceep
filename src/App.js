@@ -13,6 +13,15 @@ class App extends Component {
     }
   }
 
+  apagarNota(index){
+    let arraydeNotas = this.state.notas;
+    arraydeNotas.splice(index,1)
+
+    this.setState({
+      notas: arraydeNotas
+    })
+    console.log('log')
+  }
 
   createNote(title, text){
     const newNote = {title, text};
@@ -30,7 +39,7 @@ class App extends Component {
     return (
       <section>
         <FormularioCadastro createNote={this.createNote.bind(this)}/>
-        <ListaDeNotas notas={this.state.notas}/>
+        <ListaDeNotas apagarNota={this.apagarNota.bind(this)} notas={this.state.notas}/>
       </section>
     );
   }
