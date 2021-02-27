@@ -4,58 +4,31 @@ import  FormularioCadastro  from "./components/FormularioCadastro/FormularioCada
 import "./assets/App.css";
 import './assets/index.css';
 import ListaDeCategorias from "./components/ListaDeCategorias";
+import Categorias from "./dados/Categorias";
+import ArrayDeNotas from "./dados/Notas"
 class App extends Component {
 
   constructor(){
     super()
-    this.notas = []
-    this.state = {
-      notas:[],
-      categorias: []
-    }
+    this.notas = new ArrayDeNotas()
+    this.categorias = new Categorias();
+    
   }
 
-  apagarNota(index){
-    let arraydeNotas = this.state.notas;
-    arraydeNotas.splice(index,1)
 
-    this.setState({
-      notas: arraydeNotas
-    })
-    console.log('log')
-  }
-
-  createNote(title, text, categoria){
-
-    const newNote = {title, text, categoria};
-    const newArrayNotes = [...this.state.notas, newNote]
-    const newState = {
-      notas: newArrayNotes
-    }
-
-    this.setState(newState)
-  
-   
-  }
-
-  adicionarCategoria(nomeCategoria){
-    const novoArrayCategorias = [...this.state.categorias, nomeCategoria]
-    const novoEstado = {...this.state, categorias:novoArrayCategorias};
-    this.setState(novoEstado);
-  }
 
   render() {
     return (
       <section className="conteudo">
-        <FormularioCadastro categorias={this.state.categorias} createNote={this.createNote.bind(this)}/>
+        <FormularioCadastro categorias={this.categorias} createNote={this.notas.adicionarNota.bind(this.notas)}/>
         <main className="conteudo-principal">
          
         <ListaDeCategorias
-        adicionarCategoria={this.adicionarCategoria.bind(this)}
-        categorias={this.state.categorias}/>
+        adicionarCategoria={this.categorias.adicionarCategoria.bind(this.categorias)}
+        categorias={this.categorias}/>
         <ListaDeNotas 
-          apagarNota={this.apagarNota.bind(this)}
-          notas={this.state.notas}/>
+          apagarNota={this.notas.apagarNota.bind(this.notas)}
+          notas={this.notas}/>
         </main>
         
 
