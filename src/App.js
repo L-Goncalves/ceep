@@ -10,7 +10,8 @@ class App extends Component {
     super()
     this.notas = []
     this.state = {
-      notas:[]
+      notas:[],
+      categorias: []
     }
   }
 
@@ -24,8 +25,9 @@ class App extends Component {
     console.log('log')
   }
 
-  createNote(title, text){
-    const newNote = {title, text};
+  createNote(title, text, categoria){
+
+    const newNote = {title, text, categoria};
     const newArrayNotes = [...this.state.notas, newNote]
     const newState = {
       notas: newArrayNotes
@@ -36,12 +38,21 @@ class App extends Component {
    
   }
 
+  adicionarCategoria(nomeCategoria){
+    const novoArrayCategorias = [...this.state.categorias, nomeCategoria]
+    const novoEstado = {...this.state, categorias:novoArrayCategorias};
+    this.setState(novoEstado);
+  }
+
   render() {
     return (
       <section className="conteudo">
-        <FormularioCadastro createNote={this.createNote.bind(this)}/>
+        <FormularioCadastro categorias={this.state.categorias} createNote={this.createNote.bind(this)}/>
         <main className="conteudo-principal">
-          <ListaDeCategorias/>
+         
+        <ListaDeCategorias
+        adicionarCategoria={this.adicionarCategoria.bind(this)}
+        categorias={this.state.categorias}/>
         <ListaDeNotas 
           apagarNota={this.apagarNota.bind(this)}
           notas={this.state.notas}/>

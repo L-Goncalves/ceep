@@ -17,7 +17,7 @@ class ListaDeNotas extends Component {
           return (
             <li className="lista-notas_item" key={index}>
               
-              <CardNota indice={index} apagarNota={this.props.apagarNota} title={nota.title} text={nota.text} />
+              <CardNota categoria={nota.categoria} indice={index} apagarNota={this.props.apagarNota} title={nota.title} text={nota.text} />
             </li>
           );
         })}
